@@ -1,4 +1,5 @@
 import './styles/css/main.css'
+import { useState } from 'react'
 import Navbar from './components/Navbar'
 
 const initialHistory = [{
@@ -85,42 +86,66 @@ function Screen() {
     )
 }
 
-function Podcast() {
+function Podcast({ podcast }) {
     return ( <
         >
         <
-        h2 className = "text-center mt-6" > #02 - Practice</h2>
-
-      <p className= "text-center text-gray-400 text-sm font-semibold mt-2" >
-        Digital Marketing - By Setup Cast { ' ' } <
+        h2 className = "text-center mt-6" > { ' ' }# { podcast.order } - { podcast.title } { ' ' } <
+        /h2>{' '} <
+        p className = "text-center text-gray-400 text-sm font-semibold mt-2" > { ' ' } { podcast.genre } - By { podcast.author } { ' ' } <
         /p>{' '} <
         />
     )
 }
 
-function Actions() {
+function Actions({
+    setCurrent,
+    handleBack,
+    isPlaying,
+    handlePlay,
+    handlePause,
+}) {
+    const handleNext = () => {
+        setCurrent((prev) => prev + 1)
+    }
     return ( <
         div className = "flex items-center justify-center"
         id = "actions" >
         <
         button type = "button"
-        id = "rewind" >
+        id = "rewind"
+        onClick = { handleBack } >
         <
         img alt = "dots"
         className = "icon"
         src = "/rewind.svg" / >
         <
-        /button>{' '} <
+        /button>{' '} {
+            isPlaying ? ( <
+                button type = "button"
+                id = "pause"
+                onClick = { handlePause } >
+                <
+                img alt = "pause"
+                className = "icon"
+                src = "/pause.svg" / >
+                <
+                /button>
+            ) : ( <
+                button type = "button"
+                id = "play"
+                onClick = { handlePlay } >
+                <
+                img alt = "play"
+                className = "icon"
+                src = "/play.svg" / >
+                <
+                /button>
+            )
+        } { ' ' } <
         button type = "button"
-        id = "play" >
-        <
-        img alt = "play"
-        className = "icon"
-        src = "/play.svg" / >
-        <
-        /button>{' '} <
-        button type = "button"
-        id = "forward" >
+        id = "forward"
+        onClick = { handleNext } >
         <
         img alt = "forward"
         className = "icon"
@@ -131,7 +156,7 @@ function Actions() {
     )
 }
 
-function Status() {
+function Status({ duration }) {
     return ( <
         div className = "flex mt-4 items-center justify-center w-full text-md"
         id = "bar" >
@@ -144,7 +169,7 @@ function Status() {
         /> <div style={{ left: '50%' }} / >
         <
         /div>{' '} <
-        p className = "text-gray-400 font-semibold" > 12: 02 < /p>{' '} <
+        p className = "text-gray-400 font-semibold" > { duration } < /p>{' '} <
         /div>
     )
 }
@@ -167,7 +192,6 @@ function History({ history }) {
 }
 
 function HistoryItem({ itemInfo }) {
-    console.log(itemInfo)
     return ( <
         li className = "flex items-center" >
         <
@@ -177,25 +201,43 @@ function HistoryItem({ itemInfo }) {
         <
         p >
         <
-        span className = "font-semibold text-lg" > { ' ' }# { itemInfo.id } - { itemInfo.title } { ' ' } <
+        span className = "font-semibold text-lg" > { ' ' }# { itemInfo.order } - { itemInfo.title } { ' ' } <
         /span>{' '} <
         span className = "text-sm text-gray-500" >
-        By { itemInfo.author } - { itemInfo.duration } <
-        /span> <
-        /p> <
+        By { itemInfo.author } - { itemInfo.duration } { ' ' } <
+        /span>{' '} <
+        /p>{' '} <
         button type = "button" >
         <
         img alt = "play"
         className = "icon"
         src = "/play.svg" / >
         <
-        /button> <
-        /div> <
+        /button>{' '} <
+        /div>{' '} <
         /li>
     )
 }
 
 export default function App() {
+    // State for aktive episode
+    const [current, setCurrent] = useState(0)
+        // State for spiller
+    const [isPlaying, setIsPlaying] = useState(false)
+
+    const handleBack = () => {
+        setCurrent((prev) => prev - 1)
+    }
+
+    const handlePlay = () => {
+        console.log('play')
+        setIsPlaying(!isPlaying)
+    }
+    const handlePause = () => {
+        console.log('pause')
+        setIsPlaying(!isPlaying)
+    }
+
     return ( <
         main >
         <
@@ -203,12 +245,16 @@ export default function App() {
         <
         Screen / >
         <
-        Podcast / >
-        <
-        Status / >
-        <
-        Actions / >
-        <
+        Podcast podcast = { initialHistory[current] }
+        />{' '} <
+        Status duration = { initialHistory[current].duration }
+        />{' '} <
+        Actions isPlaying = { isPlaying }
+        setCurrent = { setCurrent }
+        handleBack = { handleBack }
+        handlePlay = { handlePlay }
+        handlePause = { handlePause }
+        />{' '} <
         History history = { initialHistory }
         />{' '} <
         /main>
