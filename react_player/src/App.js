@@ -64,7 +64,7 @@ function Screen() {
         <
         div / >
         <
-        /div>{' '} <
+        /div><
         div >
         <
         div / >
@@ -81,8 +81,8 @@ function Screen() {
         <
         div / >
         <
-        /div>{' '} <
-        /div>
+        /div>{' '} < /
+        div >
     )
 }
 
@@ -93,8 +93,8 @@ function Podcast({ podcast }) {
         h2 className = "text-center mt-6" > { ' ' }# { podcast.order } - { podcast.title } { ' ' } <
         /h2>{' '} <
         p className = "text-center text-gray-400 text-sm font-semibold mt-2" > { ' ' } { podcast.genre } - By { podcast.author } { ' ' } <
-        /p>{' '} <
-        />
+        /p>{' '} < /
+        >
     )
 }
 
@@ -109,18 +109,18 @@ function Actions({
         setCurrent((prev) => prev + 1)
     }
     return ( <
-        div className = "flex items-center justify-center"
-        id = "actions" >
-        <
-        button type = "button"
-        id = "rewind"
-        onClick = { handleBack } >
-        <
-        img alt = "dots"
-        className = "icon"
-        src = "/rewind.svg" / >
-        <
-        /button>{' '} {
+            div className = "flex items-center justify-center"
+            id = "actions" >
+            <
+            button type = "button"
+            id = "rewind"
+            onClick = { handleBack } >
+            <
+            img alt = "dots"
+            className = "icon"
+            src = "/rewind.svg" / >
+            <
+            /button>{' '} {
             isPlaying ? ( <
                 button type = "button"
                 id = "pause"
@@ -144,16 +144,16 @@ function Actions({
             )
         } { ' ' } <
         button type = "button"
-        id = "forward"
-        onClick = { handleNext } >
+    id = "forward"
+    onClick = { handleNext } >
         <
         img alt = "forward"
-        className = "icon"
-        src = "/forward.svg" / >
+    className = "icon"
+    src = "/forward.svg" / >
         <
-        /button>{' '} <
-        /div>
-    )
+        /button>{' '} < /
+        div >
+)
 }
 
 function Status({ duration }) {
@@ -165,12 +165,13 @@ function Status({ duration }) {
         div id = "slider" >
         <
         div style = {
-            { width: '50%' } }
+            { width: '50%' }
+        }
         /> <div style={{ left: '50%' }} / >
         <
         /div>{' '} <
-        p className = "text-gray-400 font-semibold" > { duration } < /p>{' '} <
-        /div>
+        p className = "text-gray-400 font-semibold" > { duration } < /p>{' '} < /
+        div >
     )
 }
 
@@ -186,8 +187,8 @@ function History({ history }) {
                 />
             ))
         } { ' ' } <
-        /ul>{' '} <
-        /div>
+        /ul>{' '} < /
+        div >
     )
 }
 
@@ -205,16 +206,16 @@ function HistoryItem({ itemInfo }) {
         /span>{' '} <
         span className = "text-sm text-gray-500" >
         By { itemInfo.author } - { itemInfo.duration } { ' ' } <
-        /span>{' '} <
-        /p>{' '} <
+        /span>{' '} < /
+        p > { ' ' } <
         button type = "button" >
         <
         img alt = "play"
         className = "icon"
         src = "/play.svg" / >
         <
-        /button>{' '} <
-        /div>{' '} <
+        /button>{' '} < /
+        div > { ' ' } <
         /li>
     )
 }
@@ -256,7 +257,7 @@ export default function App() {
         handlePause = { handlePause }
         />{' '} <
         History history = { initialHistory }
-        />{' '} <
-        /main>
+        />{' '} < /
+        main >
     )
 }
