@@ -1,6 +1,6 @@
 import { MainHeading } from '../styles/styled/Styles'
 
-function MyComponent() {
+export default function MyComponent() {
   return (
     <div>
       <MainHeading>Component</MainHeading>
@@ -8,5 +8,3 @@ function MyComponent() {
     </div>
   )
 }
-
-export default MyComponent
